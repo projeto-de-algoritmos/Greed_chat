@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import socketIOClient from "socket.io-client";
-
+import { getCodesFromText, encode, decode } from './huffman';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -19,7 +19,11 @@ function App() {
   }, [])
 
   const handleChange = useCallback(()=>{
-    socket.emit('chatMessage', text);
+    const codes = getCodesFromText(text); 
+    const encodedArray = encode(text, codes); 
+
+    const obj = Object.fromEntries(codes);
+    socket.emit('chatMessage', { encodedArray: JSON.stringify(encodedArray), codes: obj });
     setText('');
   },[text])
 
@@ -33,9 +37,11 @@ function App() {
         </AppBar>
         
         <div style={{display:"flex", flex:1, alignItems:"center", flexDirection:"column", overflow:"scroll"}}>
-        {messages.map((message, index)=>(
-          <p key={String(index)}>{message}</p>
-        ))}
+        {messages.map((message, index)=>{
+          const mapCode = new Map(Object.entries(message.codes));
+          const textTemp = decode(JSON.parse(message.encodedArray), mapCode);
+          return <p key={String(index)}>{textTemp}</p>
+        })}
         </div>
         
         <div style={{display:"flex",alignSelf:"end" ,width:"100%"}}>
@@ -43,7 +49,6 @@ function App() {
           <IconButton color="primary" onClick={handleChange}>
             <SendIcon style={{color:'#3dd164'}}/>
           </IconButton>
-
         </div>
       </div>
     </div>
