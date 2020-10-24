@@ -57,8 +57,8 @@ function App() {
           </IconButton>
         </div>
         <div style={{marginTop: 20, alignSelf: 'center'}}>
-          <Button style={{background: '#3dd164', color: '#ffffff'}}  onClick={()=>setIsVisible(!isVisible)}>
-            Revelar segredo
+          <Button style={{background: !isVisible? '#3dd164': 'red', color: '#ffffff'}}  onClick={()=>setIsVisible(!isVisible)}>
+            {isVisible ? 'Ocultar': 'Revelar segredo'}
           </Button>
         </div>
       </div>
