@@ -1,44 +1,49 @@
-**!! Atenção: Renomeie o seu repositório para (Tema)_(NomeDoProjeto). !!** 
+# Chat do Huff
 
-Temas:
- - Grafos1
- - Grafos2
- - PD
- - D&C
- - Greed
- - Final 
- 
- **!! *Não coloque os nomes dos alunos no título do repositório*. Exemplo de título correto: Grafos2_Labirinto-do-Minotauro !!**
- 
- (Apague essa seção)
-
-# NomedoProjeto
-
-**Número da Lista**: X<br>
-**Conteúdo da Disciplina**: XXXXXXXXXX<br>
+**Número da Lista**: 3<br>
+**Conteúdo da Disciplina**: Greed<br>
 
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 15/0120630  | Caio Oliveira de Moraes |
+| 16/0015294  |  Matheus Rodrigues do Nascimento |
 
 ## Sobre 
-Descreva os objetivos do seu projeto e como ele funciona. 
+O chat do huff é um chat que utiliza a compressão de huffman para esconder as mensagens do chat. Ao clicar no botão de revelar segredo as mensagens são descomprimidas e o usuário pode ler as mensagens que trocou. 
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![print1](https://cdn.discordapp.com/attachments/483408721473699850/769392683277221888/Captura_de_Tela_2020-10-23_as_23.51.46.png)
+
+
+![print2](https://cdn.discordapp.com/attachments/483408721473699850/769392734040752218/Captura_de_Tela_2020-10-23_as_23.51.58.png)
+
+![print2](https://cdn.discordapp.com/attachments/483408721473699850/769394321337352192/Captura_de_Tela_2020-10-23_as_23.58.17.png)
+
 
 ## Instalação 
-**Linguagem**: xxxxxx<br>
-**Framework**: (caso exista)<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+**Linguagem**: Javascript<br>
+**Framework**: ReactJS<br> 
 
 ## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+Para iniciar rode a api, na pasta api com o comando
+
+`yarn dev`
+
+Depois entre na pasta chat-front e rode o comando para instalar as dependencias 
+
+`yarn `
+
+Rode o front-end com o comando 
+
+`yarn start`
+
+Acesse o chat do huff na página
+
+`localhost:3000`
 
 ## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+
 
 
 
