@@ -26,9 +26,14 @@ O chat do huff é um chat que utiliza a compressão de huffman para esconder as 
 **Framework**: ReactJS<br> 
 
 ## Uso 
-Para iniciar rode a api, na pasta api com o comando
+Para iniciar instales as dependecias da API na pasta api
 
-`yarn dev`
+`yarn `
+
+Entre na pasta src e digite o comando para iniciar
+
+`yarn dev `
+
 
 Depois entre na pasta chat-front e rode o comando para instalar as dependencias 
 
