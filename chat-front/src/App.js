@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import socketIOClient from "socket.io-client";
-
+import { getCodesFromText, encode, decode } from './huffman';
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+
   const socket = socketIOClient('http://localhost:8001/chat');
     
   useEffect(()=>{
@@ -19,7 +22,11 @@ function App() {
   }, [])
 
   const handleChange = useCallback(()=>{
-    socket.emit('chatMessage', text);
+    const codes = getCodesFromText(text); 
+    const encodedArray = encode(text, codes); 
+
+    const obj = Object.fromEntries(codes);
+    socket.emit('chatMessage', { encodedArray: JSON.stringify(encodedArray), codes: obj });
     setText('');
   },[text])
 
@@ -33,17 +40,26 @@ function App() {
         </AppBar>
         
         <div style={{display:"flex", flex:1, alignItems:"center", flexDirection:"column", overflow:"scroll"}}>
-        {messages.map((message, index)=>(
-          <p key={String(index)}>{message}</p>
-        ))}
+        {messages.map((message, index)=>{
+          if(isVisible){
+            const mapCode = new Map(Object.entries(message.codes));
+            const textTemp = decode(JSON.parse(message.encodedArray), mapCode);
+            return <p key={String(index)}>{textTemp}</p>
+          }
+          return <p key={String(index)}>{JSON.parse(message.encodedArray).join('')}</p>
+        })}
         </div>
         
         <div style={{display:"flex",alignSelf:"end" ,width:"100%"}}>
-          <TextField  style={{width:"100%"}} variant="outlined" value={text} onChange={(value)=> setText(value.target.value)}/> 
-          <IconButton color="primary" onClick={handleChange}>
+          <TextField placeholder="Digite a mensagem"  style={{width:"90%"}} variant="outlined" value={text} onChange={(value)=> setText(value.target.value)}/> 
+          <IconButton color="primary" style={{flex:1}} onClick={handleChange}>
             <SendIcon style={{color:'#3dd164'}}/>
           </IconButton>
-
+        </div>
+        <div style={{marginTop: 20, alignSelf: 'center'}}>
+          <Button style={{background: !isVisible? '#3dd164': 'red', color: '#ffffff'}}  onClick={()=>setIsVisible(!isVisible)}>
+            {isVisible ? 'Ocultar': 'Revelar segredo'}
+          </Button>
         </div>
       </div>
     </div>
